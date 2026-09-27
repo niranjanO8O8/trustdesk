@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,32 +35,32 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@Entity(name = "orders")
+@Entity
+@Table(name = "orders")
 public class Order {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id")
-    private Long id;
+    private String id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
     @Enumerated(EnumType.STRING)
-    @Column
+    @Column(nullable = false)
     private OrderStatus status;
 
     @Column(name = "placed_at", nullable = false)
-    private OffsetDateTime placedAt;
+    private LocalDate placedAt;
 
-    @Column(name = "delivered_at", nullable = false)
-    private OffsetDateTime deliveredAt;
+    @Column(name = "delivered_at")
+    private LocalDate deliveredAt;
 
-    @Column(name = "eligible_return_until", nullable = false)
-    private OffsetDateTime eligibleReturnUntil;
+    @Column(name = "eligible_return_until")
+    private LocalDate eligibleReturnUntil;
 
-    @Column(nullable = false)
-    private Double total;
+    @Column(nullable = false, precision = 12, scale = 2)
+    private BigDecimal total;
 
     @Column(nullable = false)
     private String currency;

@@ -31,11 +31,11 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @Entity
+@Table(name = "tickets")
 public class Ticket {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ticket_id")
-    private Long id;
+    private String id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "customer_id", nullable = false)
@@ -79,8 +79,12 @@ public class Ticket {
     private Boolean expectedEscalation;
 
     @ElementCollection
-    @Column(name = "expected_actions")
-    private List<String> expectedAction;
+    @CollectionTable(
+            name = "ticket_expected_actions",
+            joinColumns = @JoinColumn(name = "ticket_id")
+    )
+    @Column(name = "expected_action", nullable = false)
+    private List<String> expectedActions;
 
     @Column(name = "triaged_at")
     private OffsetDateTime triagedAt;

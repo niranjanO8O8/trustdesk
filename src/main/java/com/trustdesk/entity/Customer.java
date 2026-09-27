@@ -8,6 +8,7 @@ import lombok.Setter;
 import org.hibernate.annotations.AnyDiscriminatorImplicitValues;
 
 import java.security.PrivateKey;
+import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.List;
 
@@ -29,11 +30,11 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @Entity
+@Table(name = "customers")
 public class Customer {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "customer_id")
-    private Long id;
+    private String id;
 
     @Column(nullable = false)
     private String name;
@@ -42,18 +43,24 @@ public class Customer {
     private String email;
 
     @Enumerated(EnumType.STRING)
-    private CustomerTier tierl;
+    @Column(nullable = false)
+    private CustomerTier tier;
 
     @Column(nullable = false)
     private String country;
 
     @Column(name = "created_at", nullable = false)
-    private OffsetDateTime createdAt;
+    private LocalDate createdAt;
 
     @Column()
     private boolean verified;
 
-    @Column()
+    @ElementCollection
+    @CollectionTable(
+            name = "customer_tags",
+            joinColumns = @JoinColumn(name = "customer_id")
+    )
+    @Column(name = "tag", nullable = false)
     private List<String> tags;
 
 }

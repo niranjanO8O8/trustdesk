@@ -6,5 +6,6 @@ public enum TicketSentiment {
     NEUTRAL,
     HAPPY,
     FRUSTRATED,
-    ANGRY
+    ANGRY,
+    WORRIED
 }
