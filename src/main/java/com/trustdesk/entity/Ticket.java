@@ -63,28 +63,28 @@ public class Ticket {
     @Column(nullable = false)
     private TicketStatus status;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "expected_category", nullable = false)
-    private TicketCategory expectedCategory;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "expected_priority", nullable = false)
-    private TicketPriority expectedPriority;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "expected_sentiment", nullable = false)
-    private TicketSentiment  expectedSentiment;
-
-    @Column(name = "expected_escalation", nullable = false)
-    private Boolean expectedEscalation;
-
-    @ElementCollection
-    @CollectionTable(
-            name = "ticket_expected_actions",
-            joinColumns = @JoinColumn(name = "ticket_id")
-    )
-    @Column(name = "expected_action", nullable = false)
-    private List<String> expectedActions;
+//    @Enumerated(EnumType.STRING)
+//    @Column(name = "expected_category", nullable = false)
+//    private TicketCategory expectedCategory;
+//
+//    @Enumerated(EnumType.STRING)
+//    @Column(name = "expected_priority", nullable = false)
+//    private TicketPriority expectedPriority;
+//
+//    @Enumerated(EnumType.STRING)
+//    @Column(name = "expected_sentiment", nullable = false)
+//    private TicketSentiment  expectedSentiment;
+//
+//    @Column(name = "expected_escalation", nullable = false)
+//    private Boolean expectedEscalation;
+//
+//    @ElementCollection
+//    @CollectionTable(
+//            name = "ticket_expected_actions",
+//            joinColumns = @JoinColumn(name = "ticket_id")
+//    )
+//    @Column(name = "expected_action", nullable = false)
+//    private List<String> expectedActions;
 
     @Column(name = "triaged_at")
     private OffsetDateTime triagedAt;
