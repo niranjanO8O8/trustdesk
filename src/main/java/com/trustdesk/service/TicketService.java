@@ -9,6 +9,10 @@ import com.trustdesk.service.interfaces.ITicketService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class TicketService implements ITicketService
@@ -29,5 +33,21 @@ public class TicketService implements ITicketService
                 .createdAt(ticket.getCreatedAt())
                 .status(ticket.getStatus())
                 .build();
+    }
+
+    @Override
+    public List<TicketDetailsDto> getAllTickets() {
+        List<Ticket> tickets = ticketRepository.findAll();
+
+        return tickets.stream()
+                .map(ticket -> TicketDetailsDto.builder()
+                        .ticketId(ticket.getId())
+                        .channel(ticket.getChannel())
+                        .subject(ticket.getSubject())
+                        .body(ticket.getBody())
+                        .status(ticket.getStatus())
+                        .createdAt(ticket.getCreatedAt())
+                        .build())
+                .collect(Collectors.toList());
     }
 }
